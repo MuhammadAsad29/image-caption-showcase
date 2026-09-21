@@ -108,9 +108,11 @@ COCO-70k   (70k imgs)   ──► Vocab: 8,237  ──► Complex relational rea
 - **Empirical Benefit**: Yields a dramatic leap to **0.2974 BLEU-4** and **0.9512 CIDEr**. Recognizes complex indoor relationships (appliances, food plating, room architecture) and subtle outdoor interactions that smaller datasets miss entirely.
 
 ### 4. Length-Normalized Beam Search Dynamics
-Greedy decoding often falls into local probabilistic traps. To combat this, our attention decoders implement beam search tracking the top-$k$ hypotheses with **exponential length penalty normalization**:
+Greedy decoding often falls into local probabilistic traps. To combat this, our attention decoders implement beam search tracking the top candidates with **exponential length penalty normalization**:
 
-$$\text{Score}(Y) = \frac{\sum_{t=1}^T \log P(y_t \mid y_{<t}, X)}{T^\alpha} \quad (\alpha = 0.7)$$
+$$
+\text{Score}(Y) = \frac{\sum_{t=1}^T \log P(y_t \mid y_{1:t-1}, X)}{T^\alpha} \quad (\alpha = 0.7)
+$$
 
 This prevents beam search from artificially penalizing informative, longer descriptions in favor of unnaturally short sentences.
 
@@ -145,7 +147,7 @@ The repository includes a web application designed with modern aesthetics and da
 
 ### Key UI Features
 - **Side-by-Side Comparison**: Run all 3 models simultaneously on the same image to immediately observe lexical and architectural shifts.
-- **Beam Width Interactive Sweeping**: Adjust beam width $k \in [1, 10]$ in real-time ($k=1$ activates pure greedy decoding; $k > 1$ runs multi-hypothesis search).
+- **Beam Width Interactive Sweeping**: Adjust beam width $k \in [1, 10]$ in real-time ($k=1$ activates pure greedy decoding; $k \ge 2$ runs multi-hypothesis search).
 - **Preset Test Suite**: 6 photorealistic benchmark images representing diverse challenging scenarios (rapids, street scenes, animals, dynamic sports).
 - **Custom Image Uploader**: Drag and drop any `.png`, `.jpg`, or `.jpeg` file for instant inference.
 
