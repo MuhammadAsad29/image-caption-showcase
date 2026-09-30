@@ -16,6 +16,8 @@
 
 </div>
 
+## Live Demo: https://muhammadasad29-image-caption-showcase-app-kzemcv.streamlit.app/
+
 ## 📌 Executive Summary
 
 This research project presents an **empirical investigation into dataset scaling and architectural evolution in vision-language models** for automated image caption generation.
